@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://xinyili:131001@localhost:5432/Problem"
+}
+
+model Problem {
+  id         Int      @id @default(autoincrement())
+  title      String
+  difficulty String
+  solved     Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  code       String?
+  @@map("Problem")
+}
