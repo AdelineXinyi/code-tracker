@@ -236,7 +236,17 @@ const Home = () => {
                 style={styles.textarea}
               />
             </div>
-            <button type="submit">Add Problem</button>
+            <button 
+            type="submit" 
+            style={styles.button} 
+            onMouseEnter={(e) => {
+              const target = e.target as HTMLButtonElement; // Cast to HTMLButtonElement
+              target.style.backgroundColor = styles.buttonHover?.backgroundColor || "blue"; // Fallback to a default color
+            }}
+            onMouseLeave={(e) => {
+              const target = e.target as HTMLButtonElement; // Cast to HTMLButtonElement
+              target.style.backgroundColor = styles.button?.backgroundColor || "gray"; // Fallback to a default color
+            }}>Add Problem</button>
           </form>
         </div>
 
@@ -250,7 +260,16 @@ const Home = () => {
 
         {selectedProblem && (
           <div>
-            <button onClick={handleDeleteProblem}>Delete Problem</button>
+            <button onClick={handleDeleteProblem} 
+            style={styles.button}
+            onMouseEnter={(e) => {
+              const target = e.target as HTMLButtonElement; // Cast to HTMLButtonElement
+              target.style.backgroundColor = styles.buttonHover?.backgroundColor || "blue"; // Fallback to a default color
+            }}
+            onMouseLeave={(e) => {
+              const target = e.target as HTMLButtonElement; // Cast to HTMLButtonElement
+              target.style.backgroundColor = styles.button?.backgroundColor || "gray"; // Fallback to a default color
+            }}>Delete Problem</button>
           </div>
         )}
       </div>

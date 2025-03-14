@@ -34,6 +34,19 @@ export const styles: { [key: string]: React.CSSProperties } = {
       marginBottom: "10px",
       width: "100%", // Ensure it takes up the full width
     },
+    button: {
+        padding: '10px 20px',
+        backgroundColor: '#007BFF',
+        color: '#fff',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '16px',
+        transition: 'background-color 0.3s',
+    },
+    buttonHover: {
+        backgroundColor: '#0056b3',
+    },
     textarea: {
       border: "1px solid black", // Adding black border to textarea
       padding: "8px",
