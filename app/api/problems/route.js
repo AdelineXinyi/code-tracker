@@ -63,23 +63,27 @@ export async function POST(req) {
 
 // PUT function for updating problems
 export async function PUT(req) {
-  try {
-    const { id, code } = await req.json(); // Parse JSON from the request body
-    console.log("Received data:", { id, code }); 
-    const updatedProblem = await prisma.problem.update({
-      where: { id },
-      data: { code },
-    });
-
-    return new Response(JSON.stringify(updatedProblem), { status: 200 });
-  } catch (error) {
-    console.error("Error updating problem code:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to update problem code" }),
-      { status: 500 }
-    );
+    try {
+      const { id, code } = await req.json();
+      console.log("Received data:", { id, code });
+  
+      // Ensure ID is a number
+      const problemId = Number(id);
+      if (isNaN(problemId)) {
+        return new Response(JSON.stringify({ error: "Invalid ID format" }), { status: 400 });
+      }
+  
+      const updatedProblem = await prisma.problem.update({
+        where: { id: problemId },
+        data: { code },
+      });
+  
+      return new Response(JSON.stringify(updatedProblem), { status: 200 });
+    } catch (error) {
+      console.error("Error updating problem:", error);
+      return new Response(JSON.stringify({ error: "Failed to update problem" }), { status: 500 });
+    }
   }
-}
 
 // DELETE function for deleting problems
 export async function DELETE(req) {

@@ -152,11 +152,22 @@ const Home = () => {
   
         if (res.ok) {
           const deletedProblemData = await res.json();
-          setProblems((prevProblems) =>
-            prevProblems.filter((problem) => problem.id !== selectedProblem.id)
-          );
-          setProblemCount((prevCount) => prevCount - 1); // Decrement problem count
-          setSelectedProblem(null); // Clear the selected problem
+  
+          // Update problems list after deletion
+          setProblems((prevProblems) => {
+            const updatedProblems = prevProblems.filter(
+              (problem) => problem.id !== selectedProblem.id
+            );
+            
+            // Update the problem count (decrement by 1)
+            setProblemCount(updatedProblems.length);
+  
+            // Select the first problem if any remain, otherwise null
+            setSelectedProblem(updatedProblems.length > 0 ? updatedProblems[0] : null);
+            
+            return updatedProblems;
+          });
+  
           console.log("Problem deleted successfully:", deletedProblemData);
         } else {
           console.error("Error deleting problem:", res.statusText);
@@ -174,7 +185,7 @@ const Home = () => {
       <div style={styles.leftSection}>
         <div style={styles.problemSelectContainer}>
           <h2>Select a Problem</h2>
-          <select onChange={handleProblemSelect} defaultValue="">
+          <select onChange={handleProblemSelect} value={selectedProblem ? selectedProblem.id : ""}>
             <option value="" disabled>Select a problem</option>
             {problems.map((problem) => (
               <option key={problem.id} value={problem.id}>
